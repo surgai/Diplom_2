@@ -8,7 +8,7 @@ from http import HTTPStatus
 @allure.suite("Получение доступных заказов по пользователю")
 class TestGetOrderUser:
 
-    @allure.description("")
+    @allure.description("Получение доступных заказов авторизованного пользователя - ответ 200")
     @allure.title("Получение доступных заказов авторизованного пользователя")
     def test_get_order_user_with_auth(self, create_user):
         token = {'Authorization': create_user[3]}
@@ -17,7 +17,7 @@ class TestGetOrderUser:
         assert response_get_order.status_code == HTTPStatus.OK.value and response_get_order.json()['orders'][0]['number'] == requests_create_order.json()['order']['number']
 
 
-    @allure.description("")
+    @allure.description("Получение заказов пользователя если пользователь не авторизовался - ответ 401")
     @allure.title("Получение заказов пользователя если пользователь не авторизовался")
     def test_get_order_user_not_auth(self):
         r = requests.get(f"{Urls.MAIN_URL}{Handlers.GET_ORDERS}")
